@@ -33,27 +33,29 @@ fn main() {
     let mut file = output_file();
     let mut kontrol = Check::new();
     let all_addresses = load_txt();
+    let mut say:u64 = 0;
 
     loop {
         println!("---------------------------------------------------------------------------------------------");
+        say = say + 1;
         let start = Instant::now();
         let started_assigning = start.elapsed();
         let mut rng = rand::thread_rng();
         let mnemonics = Mnemonic::generate_in_with(&mut rng, Language::English, 12).unwrap();
         println!("Mnemonics = {}",mnemonics);
-    
+
         let seed: [u8; 64] = mnemonics.to_seed("");
-    
+
         let secp = bitcoin::secp256k1::Secp256k1::new();
         let master_key = bip32::Xpriv::new_master(Network::Bitcoin, &seed).unwrap();
-    
+
         let derivation_path = DerivationPath::from_str("m/44'/0'/0'/0/0").expect("Invalid derivation path");
         let derived_xpriv = master_key.derive_priv(&secp, &derivation_path).expect("Failed to derive child key");
         let private_key = derived_xpriv.private_key;
-    
+
         let key = private_key.public_key(&secp);
         let public_key = PublicKey::new(key);
-        
+
         let p2pkh_address = Address::p2pkh(&public_key, Network::Bitcoin);
         let add = p2pkh_address;
         println!("Address = {}",add);
@@ -74,7 +76,7 @@ fn main() {
             break;
         }
         let finished_assigning = start.elapsed();
-        println!("Süre = {:?},", finished_assigning - started_assigning);
+        println!("{} - Süre = {:?},",say, finished_assigning - started_assigning);
     }
 }
 

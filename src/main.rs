@@ -10,7 +10,7 @@ use std::io::{self, BufRead};
 use std::io::prelude::*;
 use std::path::Path;
 use anyhow::Result;
-use fs4::FileExt;
+use fs4::fs_std::FileExt;
 use std::time::Instant;
 
 
@@ -40,7 +40,7 @@ fn main() {
         say = say + 1;
         let start = Instant::now();
         let started_assigning = start.elapsed();
-        let mut rng = rand::thread_rng();
+        let mut rng = bip39::rand::thread_rng();
         let mnemonics = Mnemonic::generate_in_with(&mut rng, Language::English, 12).unwrap();
         println!("Mnemonics = {}",mnemonics);
 
@@ -81,7 +81,7 @@ fn main() {
 }
 
 fn load_txt() -> Result<Vec<Address>> {
-    let path = "test.txt";
+    let path = "adressess/test.txt";
     let mut all_adress: Vec<Address> = Vec::new();
 
     // Open the file
@@ -102,6 +102,6 @@ fn output_file() -> File {
         .append(true)
         .create(true)
         .read(true)
-        .open("efficient_addresses.txt")
+        .open("adressess/efficient_addresses.txt")
         .expect("Could not create or open `efficient_addresses.txt` file.")
 }

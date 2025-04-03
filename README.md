@@ -15,7 +15,10 @@ docker run -d --name mnemonic-container mnemonic
 ```bash
 docker logs --follow mnemonic-container
 ```
-
+### Check Bash:
+```bash
+docker exec -it mnemonic-container
+```
 
 
 > [!CAUTION]

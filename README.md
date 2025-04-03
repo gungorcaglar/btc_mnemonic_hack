@@ -17,7 +17,7 @@ docker logs --follow mnemonic-container
 ```
 ### Check Bash:
 ```bash
-docker exec -it mnemonic-container
+docker exec -it mnemonic-container bash
 ```
 
 

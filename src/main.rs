@@ -87,12 +87,14 @@ fn load_txt() -> Result<Vec<Address>> {
     // Open the file
     if let Ok(file) = File::open(&Path::new(path)) {
         // Read the file line by line using a BufReader
+        println!("Reading Started ...");
         for line in io::BufReader::new(file).lines() {
             if let Ok(content) = line {
                 all_adress.push(Address::from_str(&content).unwrap().assume_checked());
             }
         }
     }
+    println!("Reading Finished ...");
     Ok(all_adress)
 }
 

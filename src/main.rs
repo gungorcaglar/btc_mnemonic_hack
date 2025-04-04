@@ -81,7 +81,7 @@ fn main() {
 }
 
 fn load_txt() -> Result<Vec<Address>> {
-    let path = "adressess/test.txt";
+    let path = "test.txt";
     let mut all_adress: Vec<Address> = Vec::new();
 
     // Open the file
@@ -104,6 +104,6 @@ fn output_file() -> File {
         .append(true)
         .create(true)
         .read(true)
-        .open("adressess/efficient_addresses.txt")
+        .open("efficient_addresses.txt")
         .expect("Could not create or open `efficient_addresses.txt` file.")
 }
